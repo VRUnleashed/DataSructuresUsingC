@@ -23,31 +23,64 @@ void deltree(struct AVLNode*);
 
 int main() {
     struct AVLNode* avl = NULL;
-    int h;
+    int h, choice, count, x, i;
 
-    avl = buildtree(avl, 20, &h);
-    avl = buildtree(avl, 6, &h);
-    avl = buildtree(avl, 29, &h);
-    avl = buildtree(avl, 5, &h);
-    avl = buildtree(avl, 12, &h);
-    avl = buildtree(avl, 25, &h);
-    avl = buildtree(avl, 32, &h);
-    avl = buildtree(avl, 10, &h);
-    avl = buildtree(avl, 15, &h);
-    avl = buildtree(avl, 27, &h);
-    avl = buildtree(avl, 13, &h);
+    printf("\t\tThis is a program to implement AVL Trees\n\n");
 
-    printf("AVL tree:\n");
-    display(avl);
+    while(1) {
+        printf("\n--MENU--\n");
+        printf("1. Create new AVL tree.\n");
+        printf("2. Delete a node from the current tree.\n");
+        printf("3. Insert a new node in the current tree.\n");
+        printf("4. Display the current AVL Tree.\n");
+        printf("5. Quit\n");
+        printf("\nEnter your choice.\n");
+        scanf("%d", &choice);
 
-    avl = deldata(avl, 20, &h);
-    avl = deldata(avl, 12, &h);
+        switch(choice) {
+        case 1:
+            if(avl != NULL) {
+                avl = NULL;
+            }
 
-    printf("\n");
-    printf("AVL tree after deletion of a node:\n");
-    display(avl);
+            printf("\nEnter the number of nodes you want in the tree.\n");
+            scanf("%d", &count);
+            printf("\nEnter the nodes one by one.\n");
 
-    deltree(avl);
+            for(i = 0; i < count; i++) {
+                scanf("%d", &x);
+                avl = buildtree(avl, x, &h);
+            }
+
+            break;
+
+        case 2:
+            printf("\nEnter the node you want to delete.\n");
+            scanf("%d", &x);
+            avl = deldata(avl, x, &h);
+            break;
+
+        case 3:
+            printf("\nEnter the node you want to insert.\n");
+            scanf("%d", &x);
+            avl = buildtree(avl, x, &h);
+            printf("\n");
+            break;
+
+        case 4:
+            printf("\nThe current AVL tree is:\n");
+            display(avl);
+            break;
+
+        case 5:
+            printf("\nAbort...");
+            deltree(avl);
+            return 0;
+
+        default:
+            printf("Enter a valid choice.\n");
+        }
+    }
 
     return 0;
 }
